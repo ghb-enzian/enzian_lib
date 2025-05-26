@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Python libraries for enzian projects"
 authors = [ {name = "Gökhan", email = "ghb@enzianlabs.com"} ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "livekit>=1.0.8,<2.0.0",
 ]
