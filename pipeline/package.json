@@ -1,0 +1,40 @@
+{
+  "name": "@enzian/pipeline",
+  "version": "1.0.0",
+  "description": "A simple, flexible pipeline framework for TypeScript with node-based processing",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "dev": "tsc --watch",
+    "lint": "eslint src/**/*.ts",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "pipeline",
+    "workflow",
+    "processing",
+    "typescript",
+    "batch-processing",
+    "node-graph"
+  ],
+  "author": "Enzian Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ]
+}
