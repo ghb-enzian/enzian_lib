@@ -93,13 +93,14 @@ export class PipelineRunner {
       };
       
     } catch (error) {
-      return {
-        success: false,
-        nodeResults: [],
-        outputs: {},
-        totalTime: Date.now() - startTime,
-        error: error instanceof Error ? error.message : String(error)
-      };
+        this.options.logger(error, 'error');
+        return {
+            success: false,
+            nodeResults: [],
+            outputs: {},
+            totalTime: Date.now() - startTime,
+            error: error instanceof Error ? error.message : String(error)
+        };
     }
   }
 
