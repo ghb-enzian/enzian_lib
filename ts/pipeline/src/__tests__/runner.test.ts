@@ -114,8 +114,13 @@ describe('PipelineRunner', () => {
 
       expect(result.success).toBe(true);
       expect(result.nodeResults).toHaveLength(3);
-      expect(result.nodeResults[1].success).toBe(false); // failing node
-      expect(result.nodeResults[2].success).toBe(true);  // success node
+      
+      // Find the failing node result (order-independent)
+      const failingResult = result.nodeResults.find(r => r.nodeName === 'failing');
+      const successResult = result.nodeResults.find(r => r.nodeName === 'success');
+      
+      expect(failingResult?.success).toBe(false);
+      expect(successResult?.success).toBe(true);
     });
 
     it('should handle timeout', async () => {

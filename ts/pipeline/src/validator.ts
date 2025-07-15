@@ -2,7 +2,7 @@
  * Pipeline validation utilities
  */
 
-import { Node, Pipeline, ParsedNodeReference } from './types';
+import { Node, RouterNode, Pipeline, ParsedNodeReference } from './types';
 
 /**
  * Regular expression for validating node reference format: "nodename:typename:outputname"
@@ -52,7 +52,7 @@ export class PipelineValidator {
   /**
    * Validate references for a single node
    */
-  private static validateNodeReferences(node: Node, availableNodes: string[], currentNodeName: string): void {
+  private static validateNodeReferences(node: Node | RouterNode, availableNodes: string[], currentNodeName: string): void {
     for (const input of node.inputs) {
       // Validate reference format
       let parsed: ParsedNodeReference;

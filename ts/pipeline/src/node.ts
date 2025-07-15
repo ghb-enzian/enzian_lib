@@ -2,7 +2,7 @@
  * Node base class and utilities for the pipeline framework
  */
 
-import { Node, NodeInputDeclaration } from './types';
+import { Node, NodeInputDeclaration, RouterNode } from './types';
 
 /**
  * Optional base class providing common utilities for pipeline nodes.
@@ -156,4 +156,19 @@ export function createSinkNode<TInputs>(
     await processFn(inputs);
     return {};
   });
+}
+
+/**
+ * Helper function to create a router node for dynamic pipeline routing
+ */
+export function createRouterNode<TInputs>(
+  name: string,
+  inputs: NodeInputDeclaration[],
+  routeFn: (inputs: TInputs) => string | string[] | Promise<string | string[]>
+): RouterNode<TInputs> {
+  return {
+    name,
+    inputs,
+    route: routeFn
+  };
 }

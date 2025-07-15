@@ -27,6 +27,18 @@ export interface Node<TInputs = any, TOutputs = any> {
 }
 
 /**
+ * Router node interface for dynamic pipeline routing
+ */
+export interface RouterNode<TInputs = any> {
+  /** Unique name identifier for this node */
+  readonly name: string;
+  /** Array of input declarations defining dependencies */
+  readonly inputs: NodeInputDeclaration[];
+  /** Router function that determines next node(s) to execute */
+  route(inputs: TInputs): string | string[] | Promise<string | string[]>;
+}
+
+/**
  * Parsed result of a node reference string
  */
 export interface ParsedNodeReference {
@@ -43,7 +55,7 @@ export interface ParsedNodeReference {
  */
 export interface Pipeline {
   /** Map of node name to node instance */
-  nodes: Record<string, Node>;
+  nodes: Record<string, Node | RouterNode>;
 }
 
 /**

@@ -11,6 +11,7 @@
 // Core types and interfaces
 export {
   Node,
+  RouterNode,
   NodeInputDeclaration,
   ParsedNodeReference,
   Pipeline,
@@ -25,7 +26,8 @@ export {
   NodeBase,
   createNode,
   createSourceNode,
-  createSinkNode
+  createSinkNode,
+  createRouterNode
 } from './node';
 
 // Validation utilities
