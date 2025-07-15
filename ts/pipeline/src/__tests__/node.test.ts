@@ -40,23 +40,6 @@ describe('Node utilities', () => {
       consoleSpy.mockRestore();
     });
 
-    describe('log', () => {
-      it('should log info messages', () => {
-        testNode.testLog('test message');
-        expect(consoleSpy).toHaveBeenCalledWith(
-          expect.stringContaining('[TestNode] INFO: test message')
-        );
-      });
-
-      it('should log error messages', () => {
-        const errorSpy = jest.spyOn(console, 'error').mockImplementation();
-        testNode.testLog('error message', 'error');
-        expect(errorSpy).toHaveBeenCalledWith(
-          expect.stringContaining('[TestNode] ERROR: error message')
-        );
-        errorSpy.mockRestore();
-      });
-    });
 
     describe('validateInputs', () => {
       it('should pass for valid inputs', () => {

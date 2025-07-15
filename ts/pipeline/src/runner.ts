@@ -18,20 +18,9 @@ const DEFAULT_OPTIONS: Required<PipelineExecutionOptions> = {
   maxConcurrency: 1,
   nodeTimeout: 30000, // 30 seconds
   continueOnError: false,
-  logger: (message: string, level: 'info' | 'warn' | 'error') => {
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [PipelineRunner]`;
-    
-    switch (level) {
-      case 'error':
-        console.error(`${prefix} ERROR: ${message}`);
-        break;
-      case 'warn':
-        console.warn(`${prefix} WARN: ${message}`);
-        break;
-      default:
-        console.log(`${prefix} INFO: ${message}`);
-    }
+  logger: () => {
+    // No-op logger by default - users must provide their own logger implementation
+    // This ensures the library works in all environments (browser, Node.js, etc.)
   }
 };
 
@@ -93,13 +82,14 @@ export class PipelineRunner {
       };
       
     } catch (error) {
-        this.options.logger(error, 'error');
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        this.options.logger(errorMessage, 'error');
         return {
             success: false,
             nodeResults: [],
             outputs: {},
             totalTime: Date.now() - startTime,
-            error: error instanceof Error ? error.message : String(error)
+            error: errorMessage
         };
     }
   }

@@ -9,23 +9,26 @@ import { Node, NodeInputDeclaration } from './types';
  * Nodes can extend this class to get helpful utilities like logging, validation, and retry logic.
  */
 export abstract class NodeBase {
+  protected logger?: (message: string, level: 'info' | 'warn' | 'error') => void;
+
+  /**
+   * Set a custom logger function
+   */
+  setLogger(logger: (message: string, level: 'info' | 'warn' | 'error') => void): void {
+    this.logger = logger;
+  }
+
   /**
    * Log a message with a specified level
    */
   protected log(message: string, level: 'info' | 'warn' | 'error' = 'info'): void {
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [${this.constructor.name}]`;
-    
-    switch (level) {
-      case 'error':
-        console.error(`${prefix} ERROR: ${message}`);
-        break;
-      case 'warn':
-        console.warn(`${prefix} WARN: ${message}`);
-        break;
-      default:
-        console.log(`${prefix} INFO: ${message}`);
+    if (this.logger) {
+      const timestamp = new Date().toISOString();
+      const prefix = `[${timestamp}] [${this.constructor.name}]`;
+      const formattedMessage = `${prefix} ${level.toUpperCase()}: ${message}`;
+      this.logger(formattedMessage, level);
     }
+    // If no logger is set, silently ignore (no-op)
   }
 
   /**
